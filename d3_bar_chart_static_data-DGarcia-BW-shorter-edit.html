@@ -1,0 +1,74 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>D3 Hello World</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <link rel="stylesheet" href="css/reset.css">
+  <style>
+    body {
+      margin: 20px;
+    }
+    #vis {
+      margin-bottom: 1em;
+    }
+  </style>
+</head>
+<body>
+  <h1>D3 Hello World</h1>
+
+  <div id="vis">
+  </div>
+
+  <script src="javascript/d3.v4.min.js"></script>
+
+  <script>
+    
+  var dataset = [11, 15, 33, 25, 80, 42, 95, 21, 66, 51, 71, 88]
+
+  var svg = d3.select("#vis")
+              .append("svg");
+
+    var w = 500, h = 100;
+
+    svg.attr("width", w)
+      .attr("height", h);
+
+// Here is the real code for the bar chart
+
+    svg.selectAll("rect")
+      .data(dataset)
+      .enter()
+      .append("rect")
+      .attr("x", function(d,i){
+        return i*20 + i;
+        })
+      .attr("y", function(d){
+        return h-d;
+        })
+      .attr("width", 20)
+      .attr("height", function(d){
+        return d;
+        });
+
+
+// Here is the instructional code for ramp-up
+/*
+    svg.selectAll("rect")
+      .data(dataset)
+      .enter()
+      .append("rect")
+      .attr("x", function(d,i){
+        return i*20;
+        })
+      .attr("width", 20)
+      .attr("height", function(d){
+        return d;
+        });
+*/
+
+
+  </script>
+</body>
+</html>
+

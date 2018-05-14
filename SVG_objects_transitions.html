@@ -1,0 +1,104 @@
+<!doctype html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <title>D3 Objects and Transitions</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="css/reset.css">
+  <style>
+    body {
+      margin: 20px;
+    }
+  </style>
+</head>
+
+<body>
+  <h1>D3 Objects and Transitions</h1>
+
+    <div class="graphContainer"></div>
+    <div class="transitionsContainer"></div>
+
+  <script src="javascript/d3.v4.min.js"></script>
+  <script>
+
+function animations() {
+    var data = [200, 100],
+        w = 800,
+        h = 300;
+
+    var canvas = d3.select(".graphContainer")
+        .append("svg")
+        .attr("width", w)
+        .attr("height", h);
+
+    var box = canvas.append("rect")
+        .attr("width", 300)
+        .attr("height", 300)
+        .attr("fill", "red");
+
+    box.transition()
+        .duration(3000)
+        .attr("width", 100)
+        .attr("height", 100);
+	}
+
+function transitions() {
+    var w = 800,
+        h = 400;
+
+    var canvas = d3.select(".transitionsContainer")
+        .append("svg")
+        .attr("width", w)
+        .attr("height", h);
+
+    var rect = canvas.append("rect")
+        .attr("width", 100)
+        .attr("height", 100)
+        .attr("fill", "red");
+
+    var circle = canvas.append("circle")
+        .attr("cx", 50)
+        .attr("cy", 200)
+        .attr("r", 50)
+        .attr("fill", "blue");
+
+    circle.transition()
+        .duration(2000)
+        .delay(3000)
+        .attr("cx", 200)
+        .attr("r", 100)
+        .on("end", function() {
+            d3.select(this)
+                .attr("fill", "purple");
+        });
+
+    rect.transition()
+        .duration(2000)
+        .delay(2000)
+        .attr("transform", "translate(200,0)")
+        .transition()
+        .attr("transform", "translate(300,200)")
+        .attr("width", 300)
+        .attr("height", 150)
+        .on("end", function() {
+            d3.select(this)
+                .attr("fill", "green");
+        });
+	}
+
+animations();
+
+transitions();
+
+d3.selectAll("circle").transition().delay(6000).duration(2000).style("opacity", 0.5);
+
+	  </script>
+</body>
+</html>
+
+
+
+
+
+

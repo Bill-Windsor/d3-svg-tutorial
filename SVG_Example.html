@@ -1,0 +1,32 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>SVG Example</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <link rel="stylesheet" href="reset.css">
+  <style>
+    body {
+      margin: 20px;
+    }
+    .active {
+      fill: green;
+    }
+    .ball {
+      transition: all 250ms;
+    }
+    .ball:hover {
+      transform: translateX(-25px) scale(1.4);
+    }
+  </style>
+</head>
+<body>
+  <h1>SVG Example</h1>
+
+  <svg width="800" height="400">
+    <circle class="ball" fill="blue" stroke="black" stroke-width="10" cx="150" cy="150" r="100"></circle>
+
+    <rect class="active" x="300" y="50" width="200" height="100"></rect>
+  </svg>
+</body>
+</html>

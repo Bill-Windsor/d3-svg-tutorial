@@ -1,0 +1,125 @@
+<!doctype html>
+<html>
+<head>
+   <meta charset="utf-8">
+   <title>D3 Objects Compilation</title>
+   <meta name="viewport" content="width=device-width, initial-scale=1">
+   <link rel="stylesheet" href="css/reset.css">
+   <style>
+      body {
+         margin: 20px;
+      }
+   </style>
+
+   <h1>D3 Objects Compilation and Placements</h1>
+   <script src="javascript/d3.v4.min.js"></script>
+</head>
+
+<body>
+   <div id="vizcontainer">
+      <svg style="width:800px; height:600px; border:1px lightgray solid;" />
+   </div>
+
+   <script>
+
+      d3.select("svg")
+         .append("text")
+         .attr("x",20)
+         .attr("y",20)
+         .text("HELLO EVERYBODY!");
+
+      d3.select("svg")
+         .append("circle")
+         .attr("r", 30)
+         .attr("cx",30)
+         .attr("cy",30)
+         .style("fill","red");
+
+      d3.select("svg")
+         .append("line")
+         .attr("x1", 30)
+         .attr("y1", 30)
+         .attr("x2",400)
+         .attr("y2",400)
+         .style("stroke", "black")
+         .style("stroke-width","3px");
+
+      d3.select("svg")
+         .append("ellipse")
+         .attr("cx",400)
+         .attr("cy",400)
+         .attr("rx",200)
+         .attr("ry",80)
+         .style("fill","lightblue");
+
+      d3.select("svg")
+         .append("text")
+         .attr("x",400)
+         .attr("y",400)
+         .text("HELLO WORLD");
+
+
+      d3.select("svg")
+         .append("circle")
+         .attr("r", 100)
+         .attr("cx",530)
+         .attr("cy",102)
+         .attr("stroke", "red")
+         .attr("stroke-width", "2px")
+         .style("fill","midnightblue");
+
+      d3.select("svg")
+         .append("circle")
+         .attr("r", 50)
+         .attr("cx",530)
+         .attr("cy",102)
+         .style("fill","mediumorchid");
+
+
+      d3.select("svg")
+         .append("circle")
+         .attr("id", "c")
+         .attr("r", 100)
+         .attr("cx",684)
+         .attr("cy",102)
+         .attr("stroke", "black")
+         .attr("stroke-width", "2px")
+         .style("fill","green");
+
+      d3.select("svg")
+         .append("circle")
+         .attr("id", "d")
+         .attr("r", 50)
+         .attr("cx",684)
+         .attr("cy",102)
+         .style("fill","gold");
+
+
+      d3.select("svg")
+         .append("text")
+         .attr("id", "a")
+         .attr("font-family", "sans-serif")
+         .attr("font-size", "18px")
+         .attr("fill", "midnightblue")
+         .attr("x",70)
+         .attr("y",50)
+         .style("opacity", 0)
+         .text("HERE IS A NEW THING");
+
+      d3.select("svg")
+         .append("text")
+         .attr("id", "b")
+         .attr("font-family", "sans-serif")
+         .attr("font-size", "18px")
+         .attr("fill", "firebrick")
+         .attr("x",450)
+         .attr("y",430)
+         .style("opacity", 0)
+         .text("HERE IS THE NEWEST THING");
+
+      d3.select("#a").transition().delay(2000).style("opacity", 1);
+      d3.select("#b").transition().delay(3000).style("opacity", 1);
+
+   </script>
+  </body>
+</html>

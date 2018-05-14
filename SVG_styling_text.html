@@ -1,0 +1,41 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>D3 Hello World</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="css/reset.css">
+  <style>
+    body {
+      margin: 20px;
+    }
+    #vis {
+      margin-bottom: 1em;
+    }
+  </style>
+</head>
+<body>
+  <h1>D3 Hello World</h1>
+
+  <div id="vis">
+  </div>
+
+  <script src="javascript/d3.v4.min.js"></script>
+  <script>
+
+	var vis = d3.select("#vis");
+
+	var p = vis.append("p")
+		.text("Hello, World!");
+
+	var p = vis.append("p")
+		.text("Hello, World!");
+
+	var p = vis.append("p")
+		.text("Hello, World!");
+
+	p.style("font-size", "30px");
+
+	  </script>
+</body>
+</html>
