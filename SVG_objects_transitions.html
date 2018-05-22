@@ -16,11 +16,17 @@
 <body>
   <h1>D3 Objects and Transitions</h1>
 
-    <div class="graphContainer"></div>
-    <div class="transitionsContainer"></div>
+    <div class="graphContainer">
+    </div>
+
+    <div class="transitionsContainer">
+    </div>
 
   <script src="javascript/d3.v4.min.js"></script>
   <script>
+
+//  style="background-color:lightgreen; border:1px lightgray solid;"
+//  style="background-color:lightyellow; border:1px lightgray solid;"
 
 function animations() {
     var data = [200, 100],
@@ -30,7 +36,9 @@ function animations() {
     var canvas = d3.select(".graphContainer")
         .append("svg")
         .attr("width", w)
-        .attr("height", h);
+        .attr("height", h)
+        .attr("stroke", "lightgray")
+        .attr("stroke-width", "1px");
 
     var box = canvas.append("rect")
         .attr("width", 300)
