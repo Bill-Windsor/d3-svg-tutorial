@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<title>D3 Bar Chart: Updates with New Data</title>
+	<meta name="viewport" content="width=device-width,initial-scale=1">
+	<link rel="stylesheet" href="css/reset.css">
+	<style>
+		body {
+		margin: 20px;
+		}
+		</style>
+</head>
+
+<body>
+	<h1>D3 Bar Chart: Updates with New Data</h1>
+
+	<h2>Click on this text to update the chart with new data values (once).</h2>
+
+	<script src="javascript/d3.v4.min.js"></script>
+
+	<script type="text/javascript">
+
+		var w = 800;
+		var h = 400;
+
+		var dataset = [ 5, 10, 13, 19, 21, 25, 22, 18, 15, 13,
+						11, 12, 15, 20, 18, 17, 16, 18, 23, 25 ];
+		
+		var xScale = d3.scaleBand()
+						.domain(d3.range(dataset.length))
+						.rangeRound([0, w])
+						.paddingInner(0.05);
+
+		var yScale = d3.scaleLinear()
+						.domain([0, d3.max(dataset)])
+						.range([0, h]);
+		
+		// Create SVG canvas
+		var svg = d3.select("body")
+					.append("svg")
+					.attr("width", w)
+					.attr("height", h);
+
+		// Create bars for Bar Chart, each with height driven by 'dataset'
+		svg.selectAll("rect")
+		   .data(dataset)
+		   .enter()
+		   .append("rect")
+		   .attr("x", function(d, i) {
+		   		return xScale(i);
+		   })
+		   .attr("y", function(d) {
+		   		return h - yScale(d);
+		   })
+		   .attr("width", xScale.bandwidth())
+		   .attr("height", function(d) {
+		   		return yScale(d);
+		   })
+		// Categorical data selection: blue-color RGB value referenced to magnitude of 'dataset' value
+		   .attr("fill", function(d) {
+				return "rgb(0, 0, " + Math.round(d * 10) + ")";
+		   });
+
+		// On click, update with new data			
+		d3.select("h2")
+			.on("click", function() {
+
+			//New values for dataset
+			dataset = [ 11, 12, 15, 20, 18, 17, 16, 18, 23, 25,
+						5, 10, 13, 19, 21, 25, 22, 18, 15, 13 ];
+
+			//Update all rects
+			svg.selectAll("rect")
+				.data(dataset)
+				.attr("y", function(d) {
+					return h - yScale(d);
+				})
+				.attr("height", function(d) {
+					return yScale(d);
+				})
+			// Categorical data selection: blue-color RGB value referenced to magnitude of 'dataset' value
+				.attr("fill", function(d) {
+					return "rgb(0, 0, " + Math.round(d * 10) + ")";
+				});
+
+			});
+
+		</script>
+	</body>
+</html>

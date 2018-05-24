@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>D3 Bar Graph (Accio Code)</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <link rel="stylesheet" href="css/reset.css">
+
+<style>
+        body, html {
+        width: 100%;
+        height: 100%;
+        margin: 0 auto;
+    }
+    .graph {
+        width: auto;
+    }
+    .tooltip {
+        text-decoration: underline;
+    }
+    .axis {
+        font: 10px Georgia, Arial, sans-serif;
+    }
+    .axis path, .axis line {
+        fill: none;
+        stroke: #dadada;
+        shape-rendering: crispEdges;
+    }
+</style>
+</head>
+
+<body>
+<div class="graph" id="barGraph"></div>
+
+<script
+  src="https://code.jquery.com/jquery-3.3.1.min.js"
+  integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+  crossorigin="anonymous"></script>
+<script src="javascript/d3.v4.min.js"></script>
+
+<script type="text/javascript">
+
+function barGraph () {
+    var margin  = {top: 20, right: 20, bottom: 100, left: 60},
+        width   = 900 - margin.left - margin.right,
+        height  = 600 - margin.top - margin.bottom,
+        x       = d3.scaleBand().rangeRound([0,width]).paddingInner(0.5),
+        y       = d3.scaleLinear().range([height,0]);
+
+    var xAxis   = d3.axisBottom().scale(x).ticks(6);
+    var yAxis   = d3.axisLeft().scale(y).ticks(5);
+
+    var svg     = d3.select("#barGraph")
+        .append("svg")
+        .attr("width", width + margin.left + margin.right)
+        .attr("height", height + margin.top + margin.bottom)
+        .append("g")
+        .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+    d3.json("data/marvel-gang.json", function (data) {
+        x.domain(data.map(function (d) {
+            return d.name;
+            }));
+
+        y.domain([0, d3.max(data, function (d) {
+            return d.rank;
+            })]);
+
+        svg.append("g")
+            .attr("class", "x axis")
+            .attr("transform", "translate(0, " + height + ")")
+            .call(xAxis)
+            .selectAll("text")
+            .style("text-anchor", "end")
+            .attr("dx", "-0.5em")
+            .attr("dy", "-.55em")
+            .attr("y", 30)
+            .attr("font-family", "sans-serif")
+            .attr("font-size", "18px")
+            .attr("fill", "midnightblue")
+            .attr("transform", "rotate(-45)" );
+
+        svg.append("g")
+            .attr("class", "y axis")
+            .call(yAxis);
+
+        svg.append("text")
+            .attr("transform", "rotate(-90)")
+            .attr("y", 5)
+            .attr("dy", "0.8em")
+            .attr("text-anchor", "end")
+            .text("Member Rank");
+
+        svg.selectAll("bar")
+            .data(data)
+            .enter()
+            .append("rect")
+            .style("fill", "orange")
+
+            .attr("x", function(d) {
+                return x(d.name);
+                    })
+
+            .attr("width", x.bandwidth())
+                
+            .attr("y", function (d) {
+                return y(d.rank);
+                    })
+
+            .attr("height", function (d) {
+                return height - y(d.rank);
+                    })
+
+            .on("mouseover", function () {
+                tooltip.style("display", null);
+                    })
+
+            .on("mouseout", function () {
+                tooltip.style("display", "none");
+                    })
+
+            .on("mousemove", function (d) {
+                var xPos    = d3.mouse(this)[0] + 60;
+                var yPos    = d3.mouse(this)[1] - 50;
+                tooltip.attr("transform", "translate(" + xPos + "," + yPos + ")");
+                tooltip.select("text").text("Name: " + d.name + " : Rank: " + d.rank);
+                    });
+
+        var tooltip     = svg.append("g")
+            .attr("class", "tooltip")
+            .style("display", "none");
+
+        tooltip.append("text")
+            .attr("x", 15)
+            .attr("dy", "1.2em")
+            .style("text-anchor", "middle")
+            .attr("font-size", "1.5em")
+            .attr("font-weight", "bold");
+        });
+    }
+
+barGraph();
+
+</script>
+</body>
+</html>

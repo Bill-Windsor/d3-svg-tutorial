@@ -1,0 +1,145 @@
+<!doctype html>
+<html>
+
+<head>
+   <meta charset="utf-8">
+   <title>D3 Objects and Transitions #2</title>
+   <meta name="viewport" content="width=device-width, initial-scale=1">
+   <link rel="stylesheet" href="css/reset.css">
+ <style>
+   body {
+      margin: 20px;
+   }
+</style>
+</head>
+
+<body>
+   <h1>D3 Objects and Transitions #2</h1>
+
+   <div id="vizcontainer">
+      <svg style="width:800px; height:600px; border:1px darkgray solid;" />
+   </div>
+
+<script src="javascript/d3.v4.min.js"></script>
+<script>
+
+   var blueBox = d3.select("svg")
+      .append("rect")
+      .attr("width", 100)
+      .attr("height", 100)
+      .attr("fill", "blue");
+
+   var greenBox = d3.select("svg")
+      .append("rect")
+      .attr("width", 100)
+      .attr("height", 100)
+      .attr("fill", "green");
+
+   var yellowBox = d3.select("svg")
+      .append("rect")
+      .attr("width", 100)
+      .attr("height", 100)
+      .attr("fill", "yellow");
+
+   yellowBox.transition()
+      .duration(1200)
+      .attr("x", 0)
+      .attr("y", 200)
+      .attr("width", 100)
+      .attr("height", 100);
+
+   greenBox.transition()
+      .duration(2000)
+      .attr("x", 150)
+      .attr("y", 200)
+      .attr("width", 200)
+      .attr("height", 200);
+
+   blueBox.transition()
+      .duration(2800)
+      .attr("x", 400)
+      .attr("y", 200)
+      .attr("width", 300)
+      .attr("height", 300);
+
+   yellowBox.transition()
+      .duration(3000)
+      .delay(3000)
+      .attr("x", 200)
+      .attr("y", 200);
+
+   greenBox.transition()
+      .duration(3000)
+      .delay(3000)
+      .attr("x", 150)
+      .attr("y", 150);
+
+   blueBox.transition()
+      .duration(3000)
+      .delay(3000)
+      .attr("x", 100)
+      .attr("y", 100);
+
+
+/*
+  -- Circle (SVG object): translation, scaling, color change --
+
+    circle.transition()
+        .delay(3000)
+        .duration(2000)
+        .attr("cx", 300)
+        .attr("r", 150)
+        .on("end", function() {
+            d3.select(this)
+                .attr("fill", "purple");
+        });
+
+  -- Rectangle (SVG object): translation, scaling, color change --
+
+    rect.transition()
+        .delay(2000)
+        .duration(2000)
+        .attr("transform", "translate(200,0)")
+        .transition()
+        .attr("transform", "translate(300,200)")
+        .attr("width", 400)
+        .attr("height", 200)
+        .on("end", function() {
+            d3.select(this)
+                .attr("fill", "green");
+
+
+  -- Two text elements here --
+
+      d3.select("svg")
+         .append("text")
+         .attr("id", "a")
+         .attr("font-family", "sans-serif")
+         .attr("font-size", "18px")
+         .attr("fill", "midnightblue")
+         .attr("x",70)
+         .attr("y",50)
+         .style("opacity", 0)
+         .text("HERE IS A NEW THING");
+
+      d3.select("svg")
+         .append("text")
+         .attr("id", "b")
+         .attr("font-family", "sans-serif")
+         .attr("font-size", "18px")
+         .attr("fill", "firebrick")
+         .attr("x",450)
+         .attr("y",430)
+         .style("opacity", 0)
+         .text("HERE IS THE NEWEST THING");
+
+  -- Displays the two text elements: transitions from invisible to totally visible --
+
+      d3.select("#a").transition().delay(2000).style("opacity", 1);
+      d3.select("#b").transition().delay(3000).style("opacity", 1);
+
+*/
+
+ </script>
+</body>
+</html>
