@@ -27,7 +27,7 @@
 
 	<script type="text/javascript">
 
-		var w = 800;
+		var w = 900;
 		var h = 400;
 
 		var dataset = [ 5, 10, 13, 19, 21, 25, 22, 18, 15, 13,
@@ -46,7 +46,8 @@
 		var svg = d3.select("body")
 					.append("svg")
 					.attr("width", w)
-					.attr("height", h);
+					.attr("height", h)
+					.attr("style", "outline: thin solid lightgray;");;
 
 		//Create bars
 		svg.selectAll("rect")
