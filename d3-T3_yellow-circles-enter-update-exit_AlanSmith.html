@@ -1,0 +1,129 @@
+<!doctype html>
+<html>
+<head>
+  <style>
+      svg {
+         width:800px; 
+         height:500px
+      }
+      button  {
+         float:left
+      }
+      line    {
+         stroke:#ddd;
+         shape-rendering: crispEdges;
+      }
+      text    {
+         text-anchor:middle;
+      }
+      circle {
+         fill:orange;
+         stroke:orange;
+         fill-opacity:0.5;
+      }
+      .axis line {
+         fill:none;
+         stroke:#ddd;
+         shape-rendering: crispEdges;
+      }
+      .axis path  {
+         fill:none;
+      }
+      .axis text {
+         font-size:0.7em;
+         fill:#555;
+         font-family:sans-serif
+      }
+  </style>
+  <script src="http://d3js.org/d3.v3.js"></script>
+</head>
+
+<body>
+  <script>
+
+      // 2 different data arrays
+      var dataArray1 = [30,35,45,55,70];
+      var dataArray2 = [50,55,45,35,20,25,25,40];
+      
+      // Globals
+      var dataIndex=1;
+      var xBuffer=70;
+      var yBuffer=150;
+      var lineLength=500;
+
+      // Create main svg element
+      var svgDoc = d3.select("body").append("svg");
+
+      svgDoc.append("text")
+         .attr("x", xBuffer+(lineLength/2))
+         .attr("y", 50)
+         .text("Dataset: " + dataIndex);
+      
+      // Create axis line
+      svgDoc.append("line")
+         .attr("x1", xBuffer)
+         .attr("y1", yBuffer)
+         .attr("x1", xBuffer+lineLength)
+         .attr("y2", yBuffer);
+
+      // Create basic circles
+      svgDoc.append("g").selectAll("circle")
+         .data(eval("dataArray" + dataIndex))
+         .enter()
+         .append("circle")
+         .attr("cx", function(d,i) {
+              var spacing = lineLength/(eval("dataArray" + dataIndex).length);
+              return xBuffer + (i*spacing)
+            })
+         .attr("cy", yBuffer)
+         .attr("r", function(d,i) { return d } );
+      
+      // Button to swap over datasets
+      d3.select("body").append("button")
+         .text("change data")
+
+         .on("click", function() {
+         // Select new data
+            if (dataIndex==1) {
+               dataIndex=2;  
+            } else   {
+               dataIndex=1;
+            }
+
+         // Rejoin data
+            var circle = svgDoc.select("g").selectAll("circle")
+               .data(eval("dataArray" + dataIndex));
+
+         // Remove unneeded circles
+            circle.exit()
+               .remove();
+
+         // Create any new circles needed
+            circle.enter()
+               .append("circle")
+               .attr("r", 0);
+
+         // Render all circles to the SVG canvas: 
+         // Number of circles = number of data values in each selected dataArray. 
+         // Each circle's radius r = the corresponding dataArray value, from index = 0 to 'length'
+         // Each circle's new position is calculated with the center points equally spaced along 
+         // the line, = (lineLength / # of elements in the data array). 
+         // So, e.g., 6 dataArray values will generate 6 circles and 6 circle center positions.
+
+            circle.transition()
+               .duration(2000)
+               .attr("cx", function(d,i) {
+                  var spacing = lineLength/(eval("dataArray" + dataIndex).length);
+                  return xBuffer + (i*spacing)
+               })
+               .attr("cy", yBuffer)
+               .attr("r", function(d,i) { return d });
+
+            d3.select("text")
+               .text("Dataset: " + dataIndex);
+
+         }); // End on-click function
+      
+  </script>
+</body>
+</html>

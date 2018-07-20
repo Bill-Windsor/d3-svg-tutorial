@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Flower JSON Objects</title>
+	<meta charset="utf-8">
+	<script src="javascript/d3.v4.min.js"></script>
+</head>
+
+<body>
+
+	<div id="content">
+		<h1>Flower Heights Bar Chart</h1>
+	</div>
+
+	<script type="text/javascript">
+	
+var flowers = [
+	{
+		"name":  "Hydrangia",
+		"latin": "Hydrangea",
+		"light": "Sun",
+		"ease":  3
+	},
+	{
+		"name":  "Chrysanthemum",
+		"latin": "Chrysanthemum",
+		"light": "Part Sun",
+		"ease":  1
+	},
+	{
+		"name":  "Peony",
+		"latin": "Paeonia",
+		"light": "Part Sun",
+		"ease": -1
+	},
+	{
+		"name":  "Orchid",
+		"latin": "Paeonia",
+		"light": "Shade",
+		"ease": -5
+	},
+	{
+		"name":  "Fern",
+		"latin": "Dryopteris",
+		"light": "Shade",
+		"ease":  5
+	},
+	{
+		"name":  "Rose",
+		"latin": "Rosa",
+		"light": "Sun",
+		"ease": -4
+	},
+	{
+		"name":  "Tulip",
+		"latin": "Tulipa",
+		"light": "Su2",
+		"ease": -2
+	},
+	{
+		"name":  "Daisy",
+		"latin": "Bellis perennis",
+		"light": "Part Sun",
+		"ease":  4
+	}
+];
+
+	flowers.map(function(flower) {
+		flower["value"] = Math.floor(Math.random() * 100 + 1);
+		return flower;
+	});
+
+	var width = 800;
+	var height = 300;
+
+	var svg = d3.select("#content").append("svg")
+		.attr("viewBox", "0 0 " + width + " " + height)
+		.attr("width", width)
+		.attr("height", height);
+
+	var rects = svg.selectAll("rect")
+		.data(flowers)
+		.enter()
+		.append("rect");
+
+	rects
+		.attr("x", function(d, i) { return i * 30; })
+		.attr("y", function(d) { return height - d["value"]; })
+		.attr("width", 30)
+		.attr("height", function(d) { return d["value"]; 
+		});
+	</script>
+</body>
+</html>
+
