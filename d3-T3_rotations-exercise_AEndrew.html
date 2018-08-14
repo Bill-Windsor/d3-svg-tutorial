@@ -3,7 +3,7 @@
 
 <head>
    <meta charset="utf-8">
-   <title>D3 Objects and Transitions #2</title>
+   <title>D3 Transitions Exercise #3</title>
    <meta name="viewport" content="width=device-width, initial-scale=1">
    <link rel="stylesheet" href="css/reset.css">
  <style>
@@ -14,102 +14,184 @@
 </head>
 
 <body>
-   <h1>Scaling Exercise</h1>
+   <h1>Rotations and Z-Index Exercise</h1>
 
-   <div class="vizcontainer">
-      <svg style="width:800px; height:600px; border:1px darkgray solid;" />
+   <div class="vizContainer">
+      <svg style="width:900px; height:600px; border:1px darkgray solid;" />
    </div>
 
 <script src="javascript/d3.v4.min.js"></script>
 <script>
 
-      var w = 900;
-      var h = 400;
+   var w = 900;
+   var h = 600;
 
-      var canvas = d3.select(".vizContainer")
-        .append("svg")
-        .attr("width", w)
-        .attr("height", h);
+   var rect1 = d3.select("svg")
+      .append("rect")
+      .attr("x", 50)
+      .attr("y", 100)
+      .attr("width", 400)
+      .attr("height", 200)
+      .attr("fill", "indigo")
+      .attr("stroke", "black")
+      .attr("stroke-width", 2);
 
-      d3.select("svg")
-        .append("rect")
-        .attr("width", 300)
-        .attr("height", 300)
-        .attr("fill", "red")
-        .attr("stroke", "black")
-        .attr("stroke-width", "1px");
+   var ellipse1 = d3.select("svg")
+      .append("ellipse")
+      .attr("cx", 250)
+      .attr("cy", 450)
+      .attr("rx", 200)
+      .attr("ry", 40)
+      .attr("stroke", "darkgreen")
+      .attr("stroke-width", 2)
+      .attr("fill", "skyblue")
+      .attr("fill-opacity", 1);
 
-      d3.select("svg")
-         .append("text")
-         .attr("x",20)
-         .attr("y",20)
-         .text("HELLO EVERYBODY!");
+   var ellipse2 = d3.select("svg")
+      .append("ellipse")
+      .attr("cx", 250)
+      .attr("cy", 200)
+      .attr("rx", 150)
+      .attr("ry", 70)
+      .attr("fill", "green")
+      .attr("fill-opacity", 1.0)
+      .attr("stroke", "red")
+      .attr("stroke-width", 2);
 
-      d3.select("svg")
-         .append("circle")
-         .attr("r", 30)
-         .attr("cx",30)
-         .attr("cy",30)
-         .style("fill","midnightblue");
+   var ellipse3 = d3.select("svg")
+      .append("ellipse")
+      .attr("cx", 250)
+      .attr("cy", 200)
+      .attr("rx", 80)
+      .attr("ry", 20)
+      .attr("fill", "darkred")
+      .attr("fill-opacity", 1.0)
+      .attr("stroke", "lightyellow")
+      .attr("stroke-width", 2);
 
-      d3.select("svg")
-        .append("ellipse")
-        .attr("cx", 350)
-        .attr("cy", 250)
-        .attr("rx", 100)
-        .attr("ry", 70)
-        .attr("stroke", "steelblue")
-        .attr("stroke-width", 2)
-        .attr("fill", "green")
-        .attr("fill-opacity", 1);
+   var text1 = d3.select("svg")
+      .append("text")
+      .attr("x", 30)
+      .attr("y", 30)
+      .attr("font-family", "sans-serif")
+      .attr("font-size", "18px")
+      .attr("fill", "black")
+      .style("opacity", 1.0)
+      .text("HELLO EVERYBODY!");
 
-/*
-   const ellipses = d3.select("svg")
-      .append('ellipse')
-      .attr('cx', 350)
-      .attr('cy', 250)
-      .attr('rx', 150)
-      .attr('ry', 70)
-      .attr('fill', 'green')
-      .attr('fill-opacity', 0.3)
-      .attr('stroke', 'steelblue')
-      .attr('stroke-width', 0.7);
+   d3.selectAll("ellipse", "circle")
+      .transition()
+      .delay(1000)
+      .duration(2000)
+      .attr("cx", 400);
 
-      d3.select("svg")
-      .append('ellipse')
-      .attr('cx', 350)
-      .attr('cy', 250)
-      .attr('rx', 80)
-      .attr('ry', 7);
+   d3.selectAll("ellipse", "circle")
+      .transition()
+      .delay(3000)
+      .duration(2000)
+      .attr("cy", 300);
 
-   const rect1 = d3.select("svg")
-      .append('rect')
-      .attr('x', 200)
-      .attr('y', 50)
-      .attr('width', 300)
-      .attr('height', 400);
+   d3.selectAll("ellipse", "circle")
+      .transition()
+      .delay(5000)
+      .duration(2000)
+      .attr("transform","translate(200, 0)");
 
-   const rect2 = d3.select("svg").insert('rect', 'circle');
+   d3.selectAll("ellipse", "circle")
+      .transition()
+      .delay(7000)
+      .duration(2000)
+      .attr("transform","scale(1.2)");
 
-   rect2.attr('stroke', 'green')
-      .attr('stroke-width', 0.5)
-      .attr('fill', 'white')
-      .attr('rx', 20)
-      .attr('ry', 4);
+   d3.selectAll("ellipse", "circle")
+      .transition()
+      .delay(9000)
+      .duration(2000)      
+      .attr("transform", 
+         `translate(-250, 0)
+         scale(1.2)`);
 
-   svg.selectAll('ellipse', 'circle')
-      .attr('transform','translate(150, 0)');
-
-
-
-/*
-   svg.selectAll('ellipse', 'circle')
-      .attr('transform', 
-         `translate(150, 0)
+   d3.selectAll("ellipse", "circle")
+      .transition()
+      .delay(11000)
+      .duration(2000)      
+      .attr("transform", 
+         `translate(-250, 0)
          scale(1.2)
-         translate(-250, 0)
+         rotate(-45, ${350 / 1.2}, ${250 / 1.2})`);
+
+
+/*
+   d3.selectAll("ellipse", "circle")
+      .transition()
+      .delay(13000)
+      .duration(2000)      
+      .attr("transform", 
+         `translate(-250, 0)
+         scale(1.2)
          rotate(-45, ${350 / 1.2}, ${250 / 1.2})
          skewY(20)`);
+*/
+
+
+/*
+   d3.selectAll("ellipse", "circle")
+      .transition()
+      .delay(11000)
+      .duration(2000)      
+      .attr("transform", 
+         `translate(-250, 0)
+         scale(1.2)
+         rotate(-45, 350, 250)
+         skewY(20)`);
+*/
+
+
+/*
+Transitions: Code Segment #1, introduced in T1
+
+   var circle1 = d3.select("svg")
+      .append("circle")
+      .attr("cx", 100)
+      .attr("cy", 200)
+      .attr("r", 100)
+      .attr("fill", "blue");
+
+   circle1.transition()
+      .delay(2000)
+      .duration(2000)
+      .attr("cx", 300)
+      .attr("r", 150)
+      .on("end", function() {
+         d3.select(this)
+            .attr("fill", "indigo");
+        });
+
+   rect1.transition()
+      .delay(1000)
+      .duration(2000)
+      .attr("transform", "translate(200,0)")
+      .transition()
+      .attr("transform", "translate(300,200)")
+      .attr("width", 400)
+      .attr("height", 200)
+      .on("end", function() {
+         d3.select(this)
+            .attr("fill", "green");
+      });
+
+   var circle2 = d3.select("svg")
+      .append("circle")
+      .attr("r", 30)
+      .attr("cx",30)
+      .attr("cy",30)
+      .style("fill","midnightblue");
+
+
+d3.selectAll("circle").transition().delay(5000).duration(2000).style("opacity", 0.5);
+
+d3.selectAll("circle").transition().delay(7000).duration(2000).style("opacity", 1.0);
+
 */
 
    </script>
